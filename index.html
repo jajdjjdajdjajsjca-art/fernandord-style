@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Barbería Yoel's | Reserva tu cita</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #111;
+      color: white;
+    }
+
+    .contenedor {
+      max-width: 600px;
+      margin: auto;
+      padding: 25px 18px;
+    }
+
+    .encabezado {
+      text-align: center;
+      padding: 25px 10px;
+    }
+
+    .logo {
+      font-size: 55px;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+
+    .subtitulo {
+      color: #ccc;
+      margin-bottom: 25px;
+    }
+
+    .tarjeta {
+      background: #1c1c1c;
+      border-radius: 18px;
+      padding: 22px;
+      margin-bottom: 18px;
+      box-shadow: 0 5px 20px rgba(0,0,0,.35);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      margin-bottom: 18px;
+      font-size: 16px;
+    }
+
+    .servicios {
+      display: grid;
+      gap: 10px;
+    }
+
+    .servicio {
+      background: #292929;
+      padding: 15px;
+      border-radius: 10px;
+    }
+
+    button {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 12px;
+      background: #25D366;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: .9;
+    }
+
+    .horarios {
+      color: #ddd;
+      line-height: 1.8;
+      text-align: center;
+    }
+
+    .pie {
+      text-align: center;
+      color: #888;
+      padding: 20px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="contenedor">
+
+    <div class="encabezado">
+      <div class="logo">💈</div>
+      <h1>Barbería Yoel's</h1>
+      <p class="subtitulo">Tu estilo, nuestra pasión.</p>
+    </div>
+
+    <div class="tarjeta">
+      <h2 style="margin-bottom:20px;">📅 Agenda tu cita</h2>
+
+      <label>Tu nombre</label>
+      <input type="text" id="nombre" placeholder="Escribe tu nombre">
+
+      <label>Servicio</label>
+      <select id="servicio">
+        <option value="">Selecciona un servicio</option>
+        <option>Corte moderno</option>
+        <option>Corte tradicional</option>
+        <option>Taper Fade</option>
+        <option>Low Fade</option>
+        <option>Mid Fade</option>
+        <option>Mullet</option>
+        <option>Mohicano</option>
+        <option>Barba</option>
+        <option>Corte + Barba</option>
+        <option>Cejas</option>
+      </select>
+
+      <label>Fecha</label>
+      <input type="date" id="fecha">
+
+      <label>Hora</label>
+      <select id="hora">
+        <option value="">Selecciona una hora</option>
+      </select>
+
+      <button onclick="agendar()">📲 Confirmar cita por WhatsApp</button>
+    </div>
+
+    <div class="tarjeta">
+      <h2 style="text-align:center; margin-bottom:15px;">✂️ Nuestros servicios</h2>
+
+      <div class="servicios">
+        <div class="servicio">💈 Cortes modernos</div>
+        <div class="servicio">✂️ Cortes tradicionales</div>
+        <div class="servicio">🔥 Taper / Low / Mid Fade</div>
+        <div class="servicio">🧔 Corte y arreglo de barba</div>
+        <div class="servicio">✨ Cejas</div>
+        <div class="servicio">💇 Mullet y Mohicano</div>
+      </div>
+    </div>
+
+    <div class="tarjeta">
+      <h2 style="text-align:center; margin-bottom:15px;">🕐 Horarios</h2>
+
+      <div class="horarios">
+        <p><strong>Lunes a sábado</strong></p>
+        <p>8:30 AM – 8:00 PM</p>
+
+        <br>
+
+        <p><strong>Domingo</strong></p>
+        <p>9:30 AM – 4:00 PM</p>
+      </div>
+    </div>
+
+    <div class="pie">
+      © 2026 Barbería Yoel's<br>
+      Reserva tu cita fácil y rápido.
+    </div>
+
+  </div>
+
+  <script>
+
+    const telefono = "50236299510";
+
+    const selectorHora = document.getElementById("hora");
+
+    function cargarHorarios() {
+
+      selectorHora.innerHTML =
+        '<option value="">Selecciona una hora</option>';
+
+      for (let hora = 8; hora <= 20; hora++) {
+
+        let hora12 = hora > 12 ? hora - 12 : hora;
+
+        let periodo = hora >= 12 ? "PM" : "AM";
+
+        if (hora === 12) {
+          hora12 = 12;
+          periodo = "PM";
+        }
+
+        if (hora === 8) {
+          continue;
+        }
+
+        selectorHora.innerHTML +=
+          `<option>${hora12}:30 ${periodo}</option>`;
+      }
+    }
+
+    cargarHorarios();
+
+    function agendar() {
+
+      const nombre =
+        document.getElementById("nombre").value.trim();
+
+      const servicio =
+        document.getElementById("servicio").value;
+
+      const fecha =
+        document.getElementById("fecha").value;
+
+      const hora =
+        document.getElementById("hora").value;
+
+      if (!nombre || !servicio || !fecha || !hora) {
+
+        alert("Por favor completa todos los datos.");
+
+        return;
+      }
+
+      const mensaje =
+        `Hola Barbería Yoel's 👋%0A%0A` +
+        `Quiero agendar una cita.%0A%0A` +
+        `👤 Nombre: ${nombre}%0A` +
+        `✂️ Servicio: ${servicio}%0A` +
+        `📅 Fecha: ${fecha}%0A` +
+        `🕐 Hora: ${hora}%0A%0A` +
+        `¿Me pueden confirmar mi cita?`;
+
+      const enlace =
+        `https://wa.me/${telefono}?text=${mensaje}`;
+
+      window.open(enlace, "_blank");
+    }
+
+  </script>
+
+</body>
+</html>
